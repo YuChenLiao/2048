@@ -1,0 +1,24 @@
+body {
+  height: 100%;
+  width: 100%;
+  background-color: antiquewhite;
+}
+
+.main {
+  width: 400px;
+  height: 400px;
+  background-color: azure;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: black 10px;
+}
+
+.main .blocks {
+  width: 100px;
+  height: 100px;
+  border: black 1px solid;
+}
