@@ -5,8 +5,8 @@ body {
 }
 
 .main {
-  width: 415px;
-  height: 415px;
+  width: 420px;
+  height: 420px;
   padding-top: 4px;
   text-align: center;
   background-color: azure;
@@ -25,7 +25,26 @@ body {
   height: 100px;
   line-height: 100px;
   border: black 1px solid;
-  border-radius: 2px;
+  margin: 1px;
+  border-radius: 8px;
   display: inline-block;
   text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  color: coral;
+}
+
+.main .blocks2 {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border: black 1px solid;
+  margin: 1px;
+  border-radius: 8px;
+  display: inline-block;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  color: coral;
+  background-color: darkseagreen;
 }
