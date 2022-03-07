@@ -5,8 +5,10 @@ body {
 }
 
 .main {
-  width: 400px;
-  height: 400px;
+  width: 415px;
+  height: 415px;
+  padding-top: 4px;
+  text-align: center;
   background-color: azure;
   position: absolute;
   top:50%;
@@ -15,10 +17,15 @@ body {
   box-sizing: border-box;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 5px grey;
+  display: inline;
 }
 
 .main .blocks {
   width: 100px;
   height: 100px;
+  line-height: 100px;
   border: black 1px solid;
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
 }

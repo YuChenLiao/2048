@@ -17,7 +17,7 @@
     for(let i=0;i<4;i++)
       for(let j=0;j<4;j++) {
         let k = Math.round(Math.random()+1-0.875)
-        initData[i][j] = k? null:2;
+        initData[i][j] = k? "&nbsp":"2";
         content += "<div class='blocks'>"+initData[i][j]+"</div>"
       }
     document.getElementById("box").innerHTML = content
