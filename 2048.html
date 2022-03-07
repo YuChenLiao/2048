@@ -2,11 +2,26 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="./2048.css">
-  <script></script>
 </head>
 
 <body>
-  <div class="main"></div>
+  <div class="main" id="box">
+    <div class="blocks"></div>
+  </div>
 </body>
+
+<script type="text/javascript">
+  let initData = [[],[],[],[]]
+  window.onload = function () {
+    let content = ""
+    for(let i=0;i<4;i++)
+      for(let j=0;j<4;j++) {
+        let k = Math.round(Math.random()+1-0.875)
+        initData[i][j] = k? null:2;
+        content += "<div class='blocks'>"+initData[i][j]+"</div>"
+      }
+    document.getElementById("box").innerHTML = content
+  }
+</script>
 
 </html>
