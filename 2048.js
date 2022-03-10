@@ -11,6 +11,28 @@ let game = {
 
   start() {
     this.init()
+    while (this.state)
+      document.onkeydown = function (e) {
+        console.log(e.key)
+        if (this.state === this.run) {
+          switch (e.key) {
+            case 'ArrowLeft':
+              this.moveLeft()
+              break
+            case 'ArrowUp':
+              this.moveTop()
+              break
+            case 'ArrowRight':
+              this.moveRight()
+              break
+            case 'ArrowDown':
+              this.moveDwon()
+              break
+            default:
+              break
+          }
+        }
+      }
   },
   init() {
     for (let i = 0; i < 4; i++)
@@ -31,16 +53,97 @@ let game = {
     this.updateView()
   },
   moveTop() {
-
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] !== 0) {
+          let k = i
+          while (k > 0) {
+            if (this.data[k - 1][j] === 0) {
+              this.data[k - 1][j] = this.data[k][j]
+              this.data[k][j] = 0
+              k--
+            }
+            if (k > 0)
+              if (this.data[k][j] === this.data[k - 1][j]) {
+                this.data[k - 1][j] += this.data[k][j]
+                this.data[k][j] = 0
+              }
+          }
+        }
+      }
+    this.newData()
+    this.updateView()
+    this.checkGame()
   },
   moveDwon() {
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] !== 0) {
+          let k = i
+          while (k < 3) {
+            if (this.data[k + 1][j] === 0) {
+              this.data[k + 1][j] = this.data[k][j]
+              this.data[k][j] = 0
+              k++
+            }
+            if (k < 3)
+              if (this.data[k][j] === this.data[k + 1][j]) {
+                this.data[k + 1][j] += this.data[k][j]
+                this.data[k][j] = 0
+              }
+          }
+        }
+      }
+    this.newData()
+    this.updateView()
+    this.checkGame()
 
   },
   moveLeft() {
-
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] !== 0) {
+          let k = j
+          while (k > 0) {
+            if (this.data[i][k - 1] === 0) {
+              this.data[i][k - 1] = this.data[i][k]
+              this.data[i][k] = 0
+              k--
+            }
+            if (k > 0)
+              if (this.data[i][k] === this.data[i][k - 1]) {
+                this.data[i][k - 1] += this.data[i][k]
+                this.data[i][k] = 0
+              }
+          }
+        }
+      }
+    this.newData()
+    this.updateView()
+    this.checkGame()
   },
   moveRight() {
-
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] !== 0) {
+          let k = j
+          while (k < 3) {
+            if (this.data[i][k + 1] === 0) {
+              this.data[i][k + 1] = this.data[i][k]
+              this.data[i][k] = 0
+              k++
+            }
+            if (k < 3)
+              if (this.data[i][k] === this.data[i][k + 1]) {
+                this.data[i][k + 1] += this.data[i][k]
+                this.data[i][k] = 0
+              }
+          }
+        }
+      }
+    this.newData()
+    this.updateView()
+    this.checkGame()
   },
   checkGame() {
 
