@@ -32,6 +32,7 @@ body {
   font-size: 50px;
   font-weight: bolder;
   color: coral;
+  background-color: rgba(200, 200, 200, 0.6);
 }
 
 .main .blocks2 {
@@ -45,6 +46,6 @@ body {
   text-align: center;
   font-size: 50px;
   font-weight: bolder;
-  color: coral;
-  background-color: darkseagreen;
+  color: rgba(255, 187, 80, 0.9);
+  background-color: rgba(143, 188, 143, 0.6);
 }

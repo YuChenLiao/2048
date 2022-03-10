@@ -16,14 +16,15 @@
     let content = ""
     for(let i=0;i<4;i++)
       for(let j=0;j<4;j++) {
-        let k = Math.round(Math.random()+1-0.875)
-        initData[i][j] = k? "&nbsp":"2";
+        let k = Math.round(Math.random()-0.875)
+        initData[i][j] = k? "2":"&nbsp";
         if(initData[i][j] === '&nbsp')
-          content += "<div class='blocks'>"+initData[i][j]+"</div>"
+          content += "<div class='blocks'"+"id=cell_"+i+j+">"+initData[i][j]+"</div>"
         else
-          content += "<div class='blocks2'>"+initData[i][j]+"</div>"
+          content += "<div class='blocks2'"+"id=cell_"+i+j+">"+initData[i][j]+"</div>"
       }
     document.getElementById("box").innerHTML = content
+    console.log(this)
   }
 </script>
 
