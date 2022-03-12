@@ -13,6 +13,7 @@ let game = {
     this.init()
     document.onkeydown = function (e) {
       if (this.state === this.run) {
+        this.checkGame()
         switch (e.key) {
           case 'ArrowLeft':
             this.moveLeft()
@@ -31,7 +32,6 @@ let game = {
         }
         this.newData()
         this.updateView()
-        this.checkGame()
       }
     }.bind(this)
   },
@@ -144,25 +144,12 @@ let game = {
       }
   },
   checkGame() {
-    let flag = true
+    let flag = false
     for (let i = 0; i < 4; i++)
       for (let j = 0; j < 4; j++) {
         if (this.data[i][j] === 0)
-          flag = false
+          flag = true
       }
-    if (!flag) {
-      for (let i = 0; i < 4; i++)
-        for (let j = 0; j < 4; j++) {
-          if (this.data[i][j] === this.data[i + 1][j] ||
-            this.data[i][j] === this.data[i - 1][j] ||
-            this.data[i][j] === this.data[i][j + 1] ||
-            this.data[i][j] === this.data[i][j - 1]
-          ) {
-            flag = true
-            break
-          }
-        }
-    }
     if (!flag) {
       this.run = false
       alert("游戏结束！")
