@@ -29,6 +29,9 @@ let game = {
           default:
             break
         }
+        this.newData()
+        this.updateView()
+        this.checkGame()
       }
     }.bind(this)
   },
@@ -78,35 +81,26 @@ let game = {
           }
         }
       }
-    this.newData()
-    this.updateView()
-    this.checkGame()
   },
   moveDown() {
-    for (let i = 0; i < 4; i++)
+    for (let i = 3; i >= 0; i--)
       for (let j = 0; j < 4; j++) {
         if (this.data[i][j] !== 0) {
           let k = i
-          while (k < 3) {
-
+          while (k >= 0 && k < 3) {
             if (this.data[k][j] === this.data[k + 1][j]) {
               this.data[k + 1][j] += this.data[k][j]
               this.data[k][j] = 0
-              k++
             } else if (this.data[k + 1][j] === 0) {
               this.data[k + 1][j] = this.data[k][j]
               this.data[k][j] = 0
-              k++
             } else {
-              k = 3
+              break
             }
+            k++
           }
         }
       }
-    this.newData()
-    this.updateView()
-    this.checkGame()
-
   },
   moveLeft() {
     for (let i = 0; i < 4; i++)
@@ -114,7 +108,6 @@ let game = {
         if (this.data[i][j] !== 0) {
           let k = j
           while (k > 0) {
-
             if (this.data[i][k] === this.data[i][k - 1]) {
               this.data[i][k - 1] += this.data[i][k]
               this.data[i][k] = 0
@@ -129,36 +122,51 @@ let game = {
           }
         }
       }
-    this.newData()
-    this.updateView()
-    this.checkGame()
   },
   moveRight() {
     for (let i = 0; i < 4; i++)
-      for (let j = 0; j < 4; j++) {
+      for (let j = 3; j >= 0; j--) {
         if (this.data[i][j] !== 0) {
           let k = j
-          while (k < 3) {
+          while (k < 3 && k >= 0) {
             if (this.data[i][k] === this.data[i][k + 1]) {
               this.data[i][k + 1] += this.data[i][k]
               this.data[i][k] = 0
-              k++
             } else if (this.data[i][k + 1] === 0) {
               this.data[i][k + 1] = this.data[i][k]
               this.data[i][k] = 0
-              k++
             } else {
-              k++
+              break
             }
+            k++
           }
         }
       }
-    this.newData()
-    this.updateView()
-    this.checkGame()
   },
   checkGame() {
-
+    let flag = true
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] === 0)
+          flag = false
+      }
+    if (!flag) {
+      for (let i = 0; i < 4; i++)
+        for (let j = 0; j < 4; j++) {
+          if (this.data[i][j] ===this.data[i+1][j]||
+            this.data[i][j] === this.data[i-1][j]||
+            this.data[i][j] === this.data[i][j+1]||
+            this.data[i][j] === this.data[i][j-1]
+          ) {
+            flag = true
+            break
+          }
+        }
+    }
+    if(!flag)
+      this.run = false
+    else
+      this.run = true
   },
   updateView() {
     for (let i = 0; i < 4; i++)
@@ -181,6 +189,7 @@ let game = {
       if (this.data[x][y] === 0) {
         flag = true
         this.data[x][y] = 2
+        console.log("坐标", x + '' + y)
       }
     }
   }
