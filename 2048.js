@@ -153,19 +153,20 @@ let game = {
     if (!flag) {
       for (let i = 0; i < 4; i++)
         for (let j = 0; j < 4; j++) {
-          if (this.data[i][j] ===this.data[i+1][j]||
-            this.data[i][j] === this.data[i-1][j]||
-            this.data[i][j] === this.data[i][j+1]||
-            this.data[i][j] === this.data[i][j-1]
+          if (this.data[i][j] === this.data[i + 1][j] ||
+            this.data[i][j] === this.data[i - 1][j] ||
+            this.data[i][j] === this.data[i][j + 1] ||
+            this.data[i][j] === this.data[i][j - 1]
           ) {
             flag = true
             break
           }
         }
     }
-    if(!flag)
+    if (!flag) {
       this.run = false
-    else
+      alert("游戏结束！")
+    } else
       this.run = true
   },
   updateView() {
