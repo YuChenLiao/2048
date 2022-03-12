@@ -11,28 +11,26 @@ let game = {
 
   start() {
     this.init()
-    while (this.state)
-      document.onkeydown = function (e) {
-        console.log(e.key)
-        if (this.state === this.run) {
-          switch (e.key) {
-            case 'ArrowLeft':
-              this.moveLeft()
-              break
-            case 'ArrowUp':
-              this.moveTop()
-              break
-            case 'ArrowRight':
-              this.moveRight()
-              break
-            case 'ArrowDown':
-              this.moveDwon()
-              break
-            default:
-              break
-          }
+    document.onkeydown = function (e) {
+      if (this.state === this.run) {
+        switch (e.key) {
+          case 'ArrowLeft':
+            this.moveLeft()
+            break
+          case 'ArrowUp':
+            this.moveTop()
+            break
+          case 'ArrowRight':
+            this.moveRight()
+            break
+          case 'ArrowDown':
+            this.moveDown()
+            break
+          default:
+            break
         }
       }
+    }.bind(this)
   },
   init() {
     for (let i = 0; i < 4; i++)
@@ -50,7 +48,15 @@ let game = {
         this.data[x2][y2] = 2
       }
     }
-    this.updateView()
+    let content = ''
+    for (let i = 0; i < 4; i++)
+      for (let j = 0; j < 4; j++) {
+        if (this.data[i][j] === 0)
+          content += "<div class='blocks'" + "id=cell_" + i + j + ">" + "&nbsp" + "</div>"
+        else
+          content += "<div class='blocks2'" + "id=cell_" + i + j + ">" + this.data[i][j] + "</div>"
+      }
+    document.getElementById("box").innerHTML = content
   },
   moveTop() {
     for (let i = 0; i < 4; i++)
@@ -58,16 +64,17 @@ let game = {
         if (this.data[i][j] !== 0) {
           let k = i
           while (k > 0) {
-            if (this.data[k - 1][j] === 0) {
+            if (this.data[k][j] === this.data[k - 1][j]) {
+              this.data[k - 1][j] += this.data[k][j]
+              this.data[k][j] = 0
+              k--
+            } else if (this.data[k - 1][j] === 0) {
               this.data[k - 1][j] = this.data[k][j]
               this.data[k][j] = 0
               k--
+            } else {
+              k = 0
             }
-            if (k > 0)
-              if (this.data[k][j] === this.data[k - 1][j]) {
-                this.data[k - 1][j] += this.data[k][j]
-                this.data[k][j] = 0
-              }
           }
         }
       }
@@ -75,22 +82,24 @@ let game = {
     this.updateView()
     this.checkGame()
   },
-  moveDwon() {
+  moveDown() {
     for (let i = 0; i < 4; i++)
       for (let j = 0; j < 4; j++) {
         if (this.data[i][j] !== 0) {
           let k = i
           while (k < 3) {
-            if (this.data[k + 1][j] === 0) {
+
+            if (this.data[k][j] === this.data[k + 1][j]) {
+              this.data[k + 1][j] += this.data[k][j]
+              this.data[k][j] = 0
+              k++
+            } else if (this.data[k + 1][j] === 0) {
               this.data[k + 1][j] = this.data[k][j]
               this.data[k][j] = 0
               k++
+            } else {
+              k = 3
             }
-            if (k < 3)
-              if (this.data[k][j] === this.data[k + 1][j]) {
-                this.data[k + 1][j] += this.data[k][j]
-                this.data[k][j] = 0
-              }
           }
         }
       }
@@ -105,16 +114,18 @@ let game = {
         if (this.data[i][j] !== 0) {
           let k = j
           while (k > 0) {
-            if (this.data[i][k - 1] === 0) {
+
+            if (this.data[i][k] === this.data[i][k - 1]) {
+              this.data[i][k - 1] += this.data[i][k]
+              this.data[i][k] = 0
+              k--
+            } else if (this.data[i][k - 1] === 0) {
               this.data[i][k - 1] = this.data[i][k]
               this.data[i][k] = 0
               k--
+            } else {
+              k = 0
             }
-            if (k > 0)
-              if (this.data[i][k] === this.data[i][k - 1]) {
-                this.data[i][k - 1] += this.data[i][k]
-                this.data[i][k] = 0
-              }
           }
         }
       }
@@ -128,16 +139,17 @@ let game = {
         if (this.data[i][j] !== 0) {
           let k = j
           while (k < 3) {
-            if (this.data[i][k + 1] === 0) {
+            if (this.data[i][k] === this.data[i][k + 1]) {
+              this.data[i][k + 1] += this.data[i][k]
+              this.data[i][k] = 0
+              k++
+            } else if (this.data[i][k + 1] === 0) {
               this.data[i][k + 1] = this.data[i][k]
               this.data[i][k] = 0
               k++
+            } else {
+              k++
             }
-            if (k < 3)
-              if (this.data[i][k] === this.data[i][k + 1]) {
-                this.data[i][k + 1] += this.data[i][k]
-                this.data[i][k] = 0
-              }
           }
         }
       }
@@ -149,15 +161,17 @@ let game = {
 
   },
   updateView() {
-    let content = ''
     for (let i = 0; i < 4; i++)
       for (let j = 0; j < 4; j++) {
-        if (this.data[i][j] === 0)
-          content += "<div class='blocks'" + "id=cell_" + i + j + ">" + "&nbsp" + "</div>"
-        else
-          content += "<div class='blocks2'" + "id=cell_" + i + j + ">" + this.data[i][j] + "</div>"
+        let div = document.getElementById('cell_' + i + j)
+        if (this.data[i][j] === 0) {
+          div.innerHTML = '&nbsp'
+          div.className = 'blocks'
+        } else {
+          div.innerHTML = this.data[i][j]
+          div.className = 'blocks2'
+        }
       }
-    document.getElementById("box").innerHTML = content
   },
   newData() {
     let flag = false
