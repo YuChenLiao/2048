@@ -10,10 +10,12 @@ let game = {
   over: false,
 
   start() {
+    let re = document.getElementById('restart')
+    re.style.display = 'none'
     this.init()
     document.onkeydown = function (e) {
+      this.checkGame()
       if (this.state === this.run) {
-        this.checkGame()
         switch (e.key) {
           case 'ArrowLeft':
             this.moveLeft()
@@ -152,6 +154,8 @@ let game = {
       }
     if (!flag) {
       this.run = false
+      let re = document.getElementById('restart')
+      re.style.display = 'block'
       alert("游戏结束！")
     } else
       this.run = true
