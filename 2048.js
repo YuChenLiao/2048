@@ -153,12 +153,12 @@ let game = {
           flag = true
       }
     if (!flag) {
-      this.run = false
+      this.state = this.over
       let re = document.getElementById('restart')
       re.style.display = 'block'
       alert("游戏结束！")
     } else
-      this.run = true
+      this.state = this.run
   },
   updateView() {
     for (let i = 0; i < 4; i++)
